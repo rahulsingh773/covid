@@ -1,3 +1,72 @@
+table{
+  text-align: center;
+    table-layout: fixed;
+  width: 1200px;
+}
+
 table, tr, td, th{
   border: 1px solid black;
+  margin: 1%;
+}
+
+button{
+  margin-left: 1%;
+}
+
+ul li {
+  display:inline;
+}
+
+input[type=search]{
+  width: 15%;
+  margin-right: 1%;
+  margin-top: 0.5%
+}
+
+select{
+  margin-right: 1%;
+  width: 10%
+}
+
+table {
+    border-spacing: 0;
+    table-layout: fixed;
+}
+th, td {
+    padding:5px 10px;
+    border:1px solid #000;
+}
+thead{
+    background:#f9f9f9;
+    display: block;
+}
+tbody {
+    height:450px;
+    display: block;
+    overflow-y: scroll;
+}
+
+
+.cols-head, .cols{
+  width: 100px;
+}
+
+.address-head{
+  width: 220px;
+}
+
+.address{
+  width: 200px;
+}
+
+.name-head{
+  width: 155px;
+}
+
+.name{
+  width: 130px;
+}
+
+.city-head{
+  width: 130px;
 }

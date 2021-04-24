@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {DetailsService} from '../details.service'
 
 @Component({
   selector: 'app-home',
@@ -7,68 +8,68 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  headers: any[] = ["ID", "Name", "Age", "Gender", "Country"];
+  headers: any[] = ["name", "address", "city", "provision", "pincode", "remedisivir", "oxygen", "beds", "plasma", "phone"];
 
-    rows = [
-      {
-        "ID" : "1",
-        "Name" : "Rahul",
-        "Age" : "21",
-        "Gender" : "Male",
-        "Country" : "India"
-      },
-      {
-        "ID" : "2",
-        "Name" : "Ajay",
-        "Age" : "25",
-        "Gender" : "Male",
-        "Country" : "India"
-      },
-      {
-        "ID" : "3",
-        "Name" : "Vikram",
-        "Age" : "31",
-        "Gender" : "Male",
-        "Country" : "Australia"
-      },
-      {
-        "ID" : "4",
-        "Name" : "Riya",
-        "Age" : "20",
-        "Gender" : "Female",
-        "Country" : "India"
-      },
-      {
-        "ID" : "5",
-        "Name" : "John",
-        "Age" : "23",
-        "Gender" : "Male",
-        "Country" : "USA"
-      },
-      {
-        "ID" : "6",
-        "Name" : "Raman",
-        "Age" : "27",
-        "Gender" : "Male",
-        "Country" : "India"
-      },
-      {
-        "ID" : "7",
-        "Name" : "Mohan",
-        "Age" : "39",
-        "Gender" : "Male",
-        "Country" : "India"
-      },
-      {
-        "ID" : "8",
-        "Name" : "Shreya",
-        "Age" : "21",
-        "Gender" : "Female",
-        "Country" : "India"
-      }
-    ]
+  rows = []
+
+  constructor(private detailsService: DetailsService) { }
 
   ngOnInit(): void {
+    this.clearAllFilters()
   }
 
+  capitalize(str): string{
+     if(str == null || typeof str != 'string' || str.length == 0){
+      return str
+     }
+     return str[0].toUpperCase() + str.slice(1)
+  }
+
+  getValue(value): any{
+    if(typeof value == 'object' && Array.isArray(value)){
+      return value.join(',').replace(/,/g, ' , ')
+    }
+    return value
+  }
+
+  clearAllFilters(){
+    this.detailsService.findAllResources((err, data)=>{
+            if(err == null){
+              this.rows = data
+            }else{
+              alert(err)
+            }
+        })
+  }
+
+  applyFilters(){
+    var filters = {
+      city: document.getElementById('city')['value'],
+      provision: document.getElementById('provision')['value'],
+      pincode: document.getElementById('pincode')['value'],
+      contact: document.getElementById('contact')['value'],
+      remedisivir: this.getResourcesValue(document.getElementById('remedisivir')['value']),
+      oxygen: this.getResourcesValue(document.getElementById('oxygen')['value']),
+      beds: this.getResourcesValue(document.getElementById('beds')['value']),
+      plasma: this.getResourcesValue(document.getElementById('plasma')['value'])
+    }
+
+    console.log("filter", filters)
+    this.detailsService.findResources(filters, (err, data)=>{
+      if(err == null){
+        this.rows = data
+      }else{
+         alert(err)
+      }
+    })
+  }
+
+  getResourcesValue(val): any{
+    if(val == 0){
+      return null
+    }else if(val == 1){
+      return true
+    }
+    return false
+  }
 }

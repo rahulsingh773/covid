@@ -1,15 +1,59 @@
-<p>home works!</p>
-<table id="users">
-  <tr>
-    <th *ngFor = "let column of headers">
-      {{column}}
-    </th>
-  </tr>
+<div>
+    <ul>
+      <li>City: <input type="search" id="city"></li>
+      <li>Provision: <input type="search" id="provision"></li>
+      <li>Pincode: <input type="search" id="pincode"></li>
+      <li>Contact: <input type="search" id="contact"></li>
+    </ul>
 
-  <tr *ngFor = "let row of rows">
-    <td *ngFor = "let column of headers">
-      {{row[column]}}
-    </td>
-  </tr>
+    <ul>
+      <li>Remedisivir:
+        <select id="remedisivir">
+          <option  selected value>  select an option  </option>
+          <option value="1">Available</option>
+          <option value="2">Not-Available</option>
+        </select>
+      </li>
+      <li>Oxygen:
+        <select id="oxygen">
+          <option  selected value>  select an option  </option>
+          <option value="1">Available</option>
+          <option value="2">Not-Available</option>
+        </select>
+      </li>
+      <li>Beds:
+        <select id="beds">
+          <option  selected value>  select an option  </option>
+          <option value="1">Available</option>
+          <option value="2">Not-Available</option>
+        </select>
+      </li>
+      <li>Plasma:
+        <select id="plasma">
+          <option selected value>  select an option  </option>
+          <option value="1">Available</option>
+          <option value="2">Not-Available</option>
+        </select>
+      </li>
+    </ul>
 
-</table>
+  <button type="submit" (click)="applyFilters()">Apply Filters</button>
+  <button type="submit" (click)="clearAllFilters()">Clear All Filters</button>
+</div>
+
+  <table id="users">
+    <thead>
+      <tr>
+        <th *ngFor = "let column of headers" class="cols" class={{column}}-head>
+          {{capitalize(column)}}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor = "let row of rows">
+        <td *ngFor = "let column of headers" class="cols" class={{column}}>
+          {{capitalize(getValue(row[column]))}}
+        </td>
+      </tr>
+    </tbody>
+  </table>

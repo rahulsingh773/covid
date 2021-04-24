@@ -1,0 +1,75 @@
+<div class="container">
+  <h1>
+    {{title}}
+  </h1>
+
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)">
+    <div class="form-group" class="left">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name"
+             placeholder="organization/Individual" formControlName="name" />
+    </div>
+
+    <div class="form-group" class="right">
+      <label for="oxygen">Oxygen</label>
+      <input type="number" min="0" class="form-control" id="oxygen"
+             placeholder="Oxygen" formControlName="oxygen" />
+    </div>
+
+    <div class="form-group" class="left">
+      <label for="provision">Provision</label>
+      <select class="form-control" id="provision"
+              placeholder="Provision" formControlName="provision" (change)="clearCities(formGroup)">
+        <option disabled selected value>Select a State</option>
+        <option *ngFor="let state of getStates()">{{state}}</option>
+      </select>
+    </div>
+
+    <div class="form-group" class="right">
+      <label for="beds">Beds</label>
+      <input type="number" min="0" class="form-control" id="beds"
+             placeholder="Beds" formControlName="beds" />
+    </div>
+
+    <div class="form-group" class="left">
+      <label for="city">City</label>
+      <select class="form-control" id="city"
+             placeholder="City" formControlName="city">
+        <option disabled selected value>Select a City</option>
+        <option *ngFor="let city of getCities(formGroup.value)">{{city}}</option>
+      </select>
+    </div>
+
+    <div class="form-group" class="right">
+      <label for="remedisivir">Remedisivir</label>
+      <input type="number" min="0" class="form-control" id="remedisivir"
+             placeholder="Remedisivir" formControlName="remedisivir" />
+    </div>
+
+    <div class="form-group" class="left">
+      <label for="phone">Contact Numbers</label>
+      <input type="text" class="form-control" id="phone"
+             placeholder="comma separated numbers" formControlName="phone" />
+    </div>
+
+    <div class="form-group" class="right">
+      <label for="plasma">Plasma</label>
+      <input type="number" min="0" class="form-control" id="plasma"
+             placeholder="Plasma" formControlName="plasma" />
+    </div>
+
+    <div class="form-group" class="left">
+      <label for="pincode">Pincode</label>
+      <input type="number" length="6" class="form-control" id="pincode"
+             placeholder="pincode" formControlName="pincode" />
+    </div>
+
+    <div class="form-group" id="addressDiv">
+      <label for="address">Address</label>
+      <textarea class="form-control" id="address"
+                placeholder="full address and/or web-link" formControlName="address" ></textarea>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Submit Form</button>
+  </form>
+</div>
